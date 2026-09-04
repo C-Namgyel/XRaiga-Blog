@@ -15,8 +15,8 @@ const slug = new URLSearchParams(window.location.search).get("slug");
 
 /* ------------------------------------------------ */
 function api(path) {
-    return "http://localhost:3000" + path;
     return "https://blog-api.xraiga.dev" + path;
+    return "http://localhost:3000" + path;
 }
 async function loadPost() {
     if (!slug) {
