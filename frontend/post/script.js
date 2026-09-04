@@ -2,11 +2,11 @@ const title = document.getElementById("title");
 const description = document.getElementById("description");
 const date = document.getElementById("date");
 const readingTime = document.getElementById("readingTime");
-// const views = document.getElementById("views");
-// const likes = document.getElementById("likes");
+const views = document.getElementById("views");
+const likes = document.getElementById("likes");
 const tags = document.getElementById("tags");
 const content = document.getElementById("content");
-// const likeBtn = document.getElementById("likeBtn");
+const likeBtn = document.getElementById("likeBtn");
 const shareBtn = document.getElementById("shareBtn");
 const progress = document.getElementById("progress");
 const loading = document.getElementById("loading");
@@ -14,6 +14,10 @@ const article = document.getElementById("article");
 const slug = new URLSearchParams(window.location.search).get("slug");
 
 /* ------------------------------------------------ */
+function api(path) {
+    return "http://localhost:3000" + path;
+    return "https://blog-api.xraiga.dev" + path;
+}
 async function loadPost() {
     if (!slug) {
         document.body.innerHTML = "<h1>404 - Post not found</h1>";
@@ -49,8 +53,30 @@ function render(post) {
     description.textContent = post.description;
     date.textContent = formatDate(post.date);
     readingTime.textContent = `${post.readingTime} min read`;
-    // views.textContent = `👁 ${post.views}`;
-    // likes.textContent = post.likes;
+    console.log(sessionStorage.getItem(post.slug) != undefined);
+    fetch(api(`/api/post/${post.slug}/`), {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            viewed: sessionStorage.getItem(post.slug) != undefined
+        })
+    })
+        .then(res => res.json())
+        .then(res => {
+            if (res.success) {
+                if (res.data) {
+                    // likeBtn.hidden = false;
+                    views.textContent = `👁 ${res.data.views}`;
+                    likes.textContent = res.data.likes;
+                    sessionStorage.setItem(post.slug, 1);
+                }
+            }
+        })
+        .catch(err => {
+            console.error(err)
+        })
     tags.innerHTML = "";
     post.tags.forEach(tag => {
         const span = document.createElement("span");
