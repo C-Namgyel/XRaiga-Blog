@@ -1,0 +1,28 @@
+[
+    {
+        "slug": "welcome",
+        "title": "Welcome to XRaiga",
+        "description": "Welcome to my little corner of the internet.",
+        "date": "2026-07-25T00:00:00.000Z",
+        "readingTime": 4,
+        "cover": "",
+        "tags": [
+            "Introduction",
+            "Personal"
+        ]
+    },
+    {
+        "slug": "medical_report_analyser",
+        "title": "Helping My Sister With a Medical Report Analyzer",
+        "description": "How I built a simple web app to make medical report analysis easier for my sister, who works at a hospital.",
+        "date": "2026-09-04T00:00:00.000Z",
+        "readingTime": 4,
+        "cover": "",
+        "tags": [
+            "Project",
+            "Web Development",
+            "JavaScript",
+            "CSV"
+        ]
+    }
+]
